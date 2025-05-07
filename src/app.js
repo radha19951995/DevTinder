@@ -1,26 +1,22 @@
 const express= require("express");
-
+const {adminAuth,userAuth}= require('./middleware/auth')
 const app= express();
-// app.use('/user',[RH1,RH2],RH3,RH4)
-app.use('/user',
-    (req,res,next)=>{
-   
-   /* res.send("handling/Route");  */
-    next();
+app.use('/admin',adminAuth)
+
+app.post('/user/login',(req,res)=>{
+    res.send("user logged in successfully")
 })
-app.get('/user',(req,res,next)=>{
-    console.log("1st response")
-  /*   res.send("handling 1st route") */
-  next();
-},
-(req,res,next)=>{
-    console.log("2nd response");
-    next()
-},
-(req,res,next)=>{
-    res.send("handling 2nd route response");
-}
-)
+app.get('/user',userAuth, (req,res)=>{
+    res.send("user data sent")
+})
+app.get('/admin/getAllData',(req,res)=>{
+    res.send("All data sent")
+})
+app.get('/admin/deleteUser',(req,res)=>{
+    res.send("user deleted")
+})
+
+
 app.listen(7777,()=>{
     console.log("server is successfully listening on port 7777...")
 })

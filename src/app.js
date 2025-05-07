@@ -1,30 +1,31 @@
 const express= require("express");
 
 const app= express();
-//this will only handle get method of API call to /user
-app.get('/user',(req,res)=>{
-    res.send({firstname:"Radha",Lasetname:"Kumari"})
-})
-//this will only handle post method of API call to user
-app.post('/user',(req,res)=>{
-    res.send("data successfully saved in the database")
-    console.log("data successfully saved in the database")
-})
-//this will handle delete api call to /user
+// app.use('/user',[RH1,RH2],RH3,RH4)
+app.use('/user',
+    (req,res,next)=>{
+    console.log("handling the route user1 !!")
+  /*   res.send("1st response"); */
+    next();
+},
+(req,res,next)=>{
+    console.log("handling the route user2 !!")
+  /*   res.send("2nd response"); */
+    next();
+},
+(req,res,next)=>{
+    console.log("handling the route user3 !!")
+   /*  res.send("3rd response"); */
+    next();
+},
+(req,res,next)=>{
+    console.log("handling the route user4 !!")
+   res.send("4th response"); 
+    next();
+},
 
-app.delete('/user',(req,res)=>{
-    res.send("deleted successfully")
-})
-//this will match all the https methods API call to /hello
-app.use("/hello", (req,res)=>{
-    res.send("Hello from hello server..");
-})
-app.use("/test", (req,res)=>{
-    res.send("Hello from test server..");
-})
-// app.use("/", (req,res)=>{
-//     res.send("Hello from server"); //order matters here
-// })
+),
+
 app.listen(7777,()=>{
     console.log("server is successfully listening on port 7777...")
 })

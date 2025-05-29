@@ -43,6 +43,7 @@ try{
 }
 
 })
+// delete the user by userid
 app.delete("/user",async (req,res)=>{
     const userId= req.body.userId
     try{
@@ -51,6 +52,20 @@ app.delete("/user",async (req,res)=>{
         res.send("user deleted successfully")
     }catch(err){
         res.status(400).send("Something went wrong")
+    }
+})
+// update the userbyid
+app.patch("/user", async (req,res)=>{
+   
+    const userId=req.body.userId
+    const data= req.body;
+    console.log(data);
+    try{
+        await User.findByIdAndUpdate({_id: userId},data);
+        res.send("user updated successfully")
+    }
+    catch(err){
+        res.status(400).send("something went wrong")
     }
 })
 
